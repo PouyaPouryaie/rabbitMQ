@@ -4,6 +4,7 @@ import ir.bigz.springbootrabbitmq.config.MessageConfig;
 import ir.bigz.springbootrabbitmq.dto.Order;
 import ir.bigz.springbootrabbitmq.dto.OrderStatus;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -13,12 +14,10 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/order")
 @AllArgsConstructor
+@Slf4j
 public class OrderPublisher {
 
-    @Autowired
-    private final RabbitTemplate rabbitTemplate;
-    @Autowired
-    private final MessageConfig messageConfig;
+    private final OrderPublishService orderPublishService;
 
     @PostMapping("/{restaurantName}")
     public String bookOrder(@RequestBody Order order, @PathVariable String restaurantName){
@@ -27,8 +26,6 @@ public class OrderPublisher {
                 "PROCESS",
                 "order placed successfully in " + restaurantName);
 
-        rabbitTemplate.convertAndSend(messageConfig.getExchange(), messageConfig.getRoutingKey(), orderStatus);
-
-        return "Success !!";
+        return orderPublishService.publishMessage(orderStatus);
     }
 }

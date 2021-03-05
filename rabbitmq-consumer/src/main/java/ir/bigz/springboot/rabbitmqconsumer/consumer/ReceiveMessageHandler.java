@@ -1,17 +1,15 @@
 package ir.bigz.springboot.rabbitmqconsumer.consumer;
 
-import ir.bigz.springboot.rabbitmqconsumer.config.MessageConfig;
 import ir.bigz.springboot.rabbitmqconsumer.dto.OrderStatus;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Service;
 
-//@Service
+@Service
 @Slf4j
-public class User {
+public class ReceiveMessageHandler {
 
-    @RabbitListener(queues = MessageConfig.QUEUE)
-    public void ConsumeMessageFromQueue(OrderStatus orderStatus){
+    public void handleMessage(OrderStatus orderStatus){
+        log.info("Handle message!!!!");
         log.info("message received from queue is " + orderStatus);
     }
 }

@@ -10,5 +10,8 @@ This sample contain 2 part, publisher and consumer. for run project, following d
 
 ## note
 ```
-In consumer, 2 type listener is exsist. first model use simple message convertor and use user <br > class with @RabbitListener for consume message. second model use messageListenerContainer <br > and custom messageConverter for map data to object in consumer. <br > plese use one of them and comment the other onces.
+In consumer, 2 type listener is exsist. first model use simple message convertor 
+and use user class with @RabbitListener for consume message.
+second model use messageListenerContainer and custom messageConverter for map data 
+to object in consumer. plese use one of them and comment the other onces.
 ```
